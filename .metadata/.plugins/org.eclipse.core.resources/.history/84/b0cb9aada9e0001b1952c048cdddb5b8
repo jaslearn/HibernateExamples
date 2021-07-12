@@ -1,0 +1,29 @@
+package com.revature.hib;
+
+import java.util.List;
+
+import org.hibernate.query.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+public class CriteriaExample03 {
+public static void main(String[] args) {
+	Transaction transactionOne = null;
+	Session session = HibernateUtil.getSessionFactory().openSession();
+	CriteriaBuilder cb = session.getCriteriaBuilder();
+	CriteriaQuery<Item> cr = cb.createQuery(Item.class);
+	Root<Item> root = cr.from(Item.class);
+	//cr.select(root);
+	
+	//To get items having a price of more than 1000:
+	cr.select(root).where(cb.gt(root.get("itemPrice"), 10));
+
+	Query<Item> query = session.createQuery(cr);
+	List<Item> results = query.getResultList();
+	results.forEach(i->System.out.println(i));
+}
+}

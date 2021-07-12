@@ -1,0 +1,9 @@
+package com.revature.hib;
+
+public class Item {
+	private Integer itemId;
+    private String itemName;
+    private String itemDescription;
+    private Integer itemPrice;
+
+}
